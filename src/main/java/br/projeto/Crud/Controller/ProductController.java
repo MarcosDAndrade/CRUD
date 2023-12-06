@@ -3,6 +3,7 @@ package br.projeto.Crud.Controller;
 import br.projeto.Crud.Domain.product.Product;
 import br.projeto.Crud.Domain.product.ProductRepository;
 import br.projeto.Crud.Domain.product.RequestProduct;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class ProductController {
             product.setPrice_in_cents(data.price_in_cents());
             return ResponseEntity.ok(product);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new EntityNotFoundException();
         }
     }
 
@@ -50,7 +51,7 @@ public class ProductController {
             product.setActive(false);
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.noContent().build();
+            throw new EntityNotFoundException();
         }
 
     }
